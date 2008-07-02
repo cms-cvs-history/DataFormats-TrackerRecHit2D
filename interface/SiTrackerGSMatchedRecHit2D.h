@@ -13,6 +13,7 @@ public:
 			 simhitId_(),
 			 simtrackId_(),
 			 eeId_(),
+                         cluster_(),  
                          pixelMultiplicityAlpha_(), 
                          pixelMultiplicityBeta_(),
                          isMatched_(), 
@@ -26,6 +27,7 @@ public:
 		       const int simhitId,
 		       const int simtrackId,
 		       const uint32_t eeId,
+                       ClusterRef const&  cluster,
 		       const int pixelMultiplicityX,
 		       const int pixelMultiplicityY,
 		       const bool isMatched,
@@ -38,6 +40,7 @@ public:
 		       const int simhitId,
 		       const int simtrackId,
 		       const uint32_t eeId,
+                       ClusterRef const&  cluster,
 		       const int pixelMultiplicityX,
 		       const int pixelMultiplicityY
 		       );  
@@ -53,15 +56,21 @@ public:
   const SiTrackerGSRecHit2D *monoHit() const { return &componentMono_;}
   const SiTrackerGSRecHit2D *stereoHit() const { return &componentStereo_;}
 
+ ClusterRef const& cluster() const { return cluster_;}
+  void setClusterRef(const ClusterRef &ref) { cluster_  = ref; }
+ 
+
   virtual bool sharesInput( const TrackingRecHit* other, SharedInputType what) const {return false;}
  
 private:
   int const simhitId_;
   int const simtrackId_;
   uint32_t const eeId_;
+  ClusterRef cluster_;
   int const pixelMultiplicityAlpha_;
   int const pixelMultiplicityBeta_;
   bool isMatched_;
+
   SiTrackerGSRecHit2D componentMono_;
   SiTrackerGSRecHit2D componentStereo_;
 };
