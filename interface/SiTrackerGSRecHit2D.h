@@ -1,20 +1,22 @@
 #ifndef SiTrackerGSRecHit2D_H
 #define SiTrackerGSRecHit2D_H
 
-#include "DataFormats/TrackerRecHit2D/interface/GSSiTrackerRecHit2DLocalPos.h"
+//#include "DataFormats/TrackerRecHit2D/interface/GSSiTrackerRecHit2DLocalPos.h"
+//now position and error are transient
+#include "DataFormats/TrackerRecHit2D/interface/BaseSiTrackerRecHit2DLocalPos.h"
 #include "DataFormats/Common/interface/Ref.h"
 #include "FastSimDataFormats/External/interface/FastTrackerClusterCollection.h" 
 
  typedef edm::Ref<FastTrackerClusterCollection, FastTrackerCluster > ClusterRef;
  typedef edm::RefProd<FastTrackerClusterCollection> ClusterRefProd;
 
-class SiTrackerGSRecHit2D : public GSSiTrackerRecHit2DLocalPos{
+class SiTrackerGSRecHit2D : public BaseSiTrackerRecHit2DLocalPos{
   
 public:
   
  
   
-  SiTrackerGSRecHit2D(): GSSiTrackerRecHit2DLocalPos(),
+  SiTrackerGSRecHit2D(): BaseSiTrackerRecHit2DLocalPos(),
 			 simhitId_(),
 			 simtrackId_(),
 			 eeId_(),

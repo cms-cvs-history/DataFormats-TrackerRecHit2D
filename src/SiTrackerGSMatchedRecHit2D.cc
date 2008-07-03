@@ -11,7 +11,7 @@ SiTrackerGSMatchedRecHit2D::SiTrackerGSMatchedRecHit2D( const LocalPoint& pos, c
 					  const bool isMatched = false,
 					  const SiTrackerGSRecHit2D* rMono = 0 , 
 					  const SiTrackerGSRecHit2D* rStereo= 0 ):
-  GSSiTrackerRecHit2DLocalPos(pos,err,id) ,
+  BaseSiTrackerRecHit2DLocalPos(pos,err,id) ,
   simhitId_(simhitId) ,
   simtrackId_(simtrackId) ,
   eeId_(eeId) ,
@@ -31,7 +31,7 @@ SiTrackerGSMatchedRecHit2D::SiTrackerGSMatchedRecHit2D( const LocalPoint& pos, c
 					  ClusterRef const&  cluster ,
 					  const int pixelMultiplicityX = -1,
 					  const int pixelMultiplicityY = -1):
-  GSSiTrackerRecHit2DLocalPos(pos,err,id) ,
+  BaseSiTrackerRecHit2DLocalPos(pos,err,id) ,
   simhitId_(simhitId) ,
   simtrackId_(simtrackId) ,
   eeId_(eeId) ,
