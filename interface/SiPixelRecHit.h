@@ -56,9 +56,24 @@ private:
   // *************************************************************************
 
 public:
+  //--- The overall probability.  flags is the 32-bit-packed set of flags that
+  //--- our own concrete implementation of clusterProbability() uses to direct
+  //--- the computation based on the information stored in the quality word
+  //--- (and which was computed by the CPE).  The default of flags==0 returns
+  //--- a function of the combined probs involving the log of the combined
+	//--- prob as described by Morris Swartz in a note.
+  //--- Flags are static and kept in the transient rec hit.
+  float clusterProbability(unsigned int flags = 0) const;
+
+
   //--- Allow direct access to the packed quality information.
-  SiPixelRecHitQuality::QualWordType rawQualityWord() const { return qualWord_; }
-  
+  inline SiPixelRecHitQuality::QualWordType rawQualityWord() const { 
+    return qualWord_ ; 
+  }
+  inline void setRawQualityWord( SiPixelRecHitQuality::QualWordType w ) { 
+    qualWord_ = w; 
+  }
+
 
   //--- Template fit probability, in X and Y directions
   inline float probabilityX() const     {
@@ -68,22 +83,7 @@ public:
     return SiPixelRecHitQuality::thePacking.probabilityY( qualWord_ );
   }
 
-  // Add estimates of cot(alpha) and cot(beta) from the
-  // cluster length.  This can be used by:
-  // a) the seed cleaning
-  // b) any possible crude "quality" flag based on (dis)agreement between
-  //    W_pred and W (from charge lenght)
-  // c) an alternative 2nd pass CPE which reads charge per unit length (k_3D) from
-  //    the DB but then needs angle estimates to switch to
-  //--- cot(alpha) obtained from the sizes along X and Y (= thickness/(size-1))
-  inline float cotAlphaFromCluster() const     {
-    return SiPixelRecHitQuality::thePacking.cotAlphaFromCluster( qualWord_ );
-  }
-  inline float cotBetaFromCluster() const     {
-    return SiPixelRecHitQuality::thePacking.cotBetaFromCluster( qualWord_ );
-  }
-
-  //--- Charge `bin' (values 0, 1, 2, 3) according to Morris's template
+	//--- Charge `bin' (values 0, 1, 2, 3) according to Morris's template
   //--- code. qBin==4 is unphysical, qBin=5,6,7 are yet unused)
   //
   inline int qBin() const     {
@@ -105,15 +105,13 @@ public:
     return SiPixelRecHitQuality::thePacking.spansTwoROCs( qualWord_ );
   }
 
+	//--- Quality flag for whether the probability is filled
+	inline bool hasFilledProb() const {
+		return SiPixelRecHitQuality::thePacking.hasFilledProb( qualWord_ );
+	}
   
   //--- Setters for the above
-  inline void setCotAlphaFromCluster( float cotalpha ) {
-    SiPixelRecHitQuality::thePacking.setCotAlphaFromCluster( cotalpha, qualWord_ );
-  }
-  inline void setCotBetaFromCluster ( float cotbeta ) {
-    SiPixelRecHitQuality::thePacking.setCotBetaFromCluster( cotbeta, qualWord_ );
-  }
-  inline void setProbabilityX( float prob ) {
+	inline void setProbabilityX( float prob ) {
     SiPixelRecHitQuality::thePacking.setProbabilityX( prob, qualWord_ );
   }
   inline void setProbabilityY( float prob ) {
@@ -131,7 +129,9 @@ public:
   inline void setSpansTwoROCs( bool flag ) {
     SiPixelRecHitQuality::thePacking.setSpansTwoROCs( flag, qualWord_ );
   }
-
+	inline void setHasFilledProb( bool flag ) {
+		SiPixelRecHitQuality::thePacking.setHasFilledProb( flag, qualWord_ );
+	}
 
 private:
 
