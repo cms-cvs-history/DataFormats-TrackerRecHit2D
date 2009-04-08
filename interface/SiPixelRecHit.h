@@ -56,6 +56,7 @@ private:
   // *************************************************************************
 
 public:
+
   //--- The overall probability.  flags is the 32-bit-packed set of flags that
   //--- our own concrete implementation of clusterProbability() uses to direct
   //--- the computation based on the information stored in the quality word
@@ -64,7 +65,6 @@ public:
 	//--- prob as described by Morris Swartz in a note.
   //--- Flags are static and kept in the transient rec hit.
   float clusterProbability(unsigned int flags = 0) const;
-
 
   //--- Allow direct access to the packed quality information.
   inline SiPixelRecHitQuality::QualWordType rawQualityWord() const { 

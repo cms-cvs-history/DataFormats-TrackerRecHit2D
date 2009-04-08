@@ -19,8 +19,6 @@ bool SiPixelRecHit::sharesInput( const TrackingRecHit* other,
 
   return cluster_ == otherCast->cluster();
 }
-
-
 //--- The overall probability.  flags is the 32-bit-packed set of flags that
 //--- our own concrete implementation of clusterProbability() uses to direct
 //--- the computation based on the information stored in the quality word
@@ -51,4 +49,5 @@ float SiPixelRecHit::clusterProbability(unsigned int flags) const
 	}
 	
 }
+
 
